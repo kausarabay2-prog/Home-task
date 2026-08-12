@@ -1,17 +1,68 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Cars</title>
+    <style>
+        body {
+            font-family: serif;
+            margin: 20px;
+        }
+        .row {
+            margin: 4px 0;
+        }
+        .separator {
+            border: none;
+            border-top: 1px dashed #000;
+            margin: 8px 0;
+        }
+        input, select, button {
+            font-size: 14px;
+            padding: 4px 6px;
+        }
+        a {
+            margin-right: 6px;
+        }
+    </style>
 </head>
 <body>
-<form th:action="@{'/add-car'}" method="post" >
-    <input thype="text" name="brand">
-    <input thype="text" name="model">
-    <input thype="text" name="engine_volume">
-    <input thype="text" name="Max_speed">
-    <button th:type="submit">add</button>
+
+<form method="get" action="/">
+    <input type="number" step="0.1" name="minimal_engine_volume">
+    <button type="submit">filter</button>
 </form>
+
+<hr class="separator">
+
+<div class="row" th:each="car : ${cars}">
+    id: <span th:text="${car.id}"></span>
+    brand: <span th:text="${car.brand}"></span>
+    model: <span th:text="${car.model}"></span>
+    eng-vol: <span th:text="${car.engineVolume}"></span>
+    maxSpeed: <span th:text="${car.maxSpeed}"></span>
+    country: <span th:text="${car.country != null ? car.country.name : ''}"></span>
+    <a th:href="@{'/' + ${car.id}}">details</a>
+    <form style="display:inline" method="post" th:action="@{'/delete/' + ${car.id}}">
+        <button type="submit">delete</button>
+    </form>
+</div>
+
+<hr class="separator">
+
+<form method="post" action="/add-car" style="display:flex; gap:6px; align-items:center;">
+    <input type="text" name="brand" placeholder="brand" required>
+    <input type="text" name="model" placeholder="model" required>
+    <input type="number" step="0.1" name="engine_volume" placeholder="eng-vol" required>
+    <input type="number" name="max_speed" placeholder="maxSpeed" required>
+    <select name="country_id" required>
+        <option value="" disabled selected>country</option>
+        <option th:each="country : ${countries}"
+                th:value="${country.id}"
+                th:text="${country.name}">
+        </option>
+    </select>
+    <button type="submit">add</button>
+</form>
+
 </body>
 </html>

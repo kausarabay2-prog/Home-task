@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Countries</title>
+    <style>
+        body { font-family: sans-serif; margin: 40px; }
+        table { border-collapse: collapse; width: 100%; max-width: 600px; }
+        th, td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
+        th { background: #f4f4f4; }
+        .back-link { display: inline-block; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+<h1>Countries</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Code</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr th:each="country : ${countries}">
+        <td th:text="${country.id}"></td>
+        <td th:text="${country.name}"></td>
+        <td th:text="${country.code}"></td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>—</td>
+        <td><input type="text" name="name" placeholder="Country name" form="add-country-form" required></td>
+        <td><input type="text" name="code" placeholder="Code" maxlength="10" form="add-country-form" required></td>
+        <td><button type="submit" form="add-country-form">Add</button></td>
+    </tr>
+
+    </tbody>
+</table>
+
+<form id="add-country-form" method="post" action="/countries/add"></form>
+
+<a class="back-link" href="/">&larr; Back to cars</a>
+
+</body>
+</html>
