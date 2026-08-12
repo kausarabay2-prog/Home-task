@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{'/add-car'}" method="post" >
+    <input thype="text" name="brand">
+    <input thype="text" name="model">
+    <input thype="text" name="engine_volume">
+    <input thype="text" name="Max_speed">
+    <button th:type="submit">add</button>
+</form>
+</body>
+</html>
